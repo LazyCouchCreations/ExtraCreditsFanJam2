@@ -1307,14 +1307,14 @@ MonoBehaviour:
     m_Bits: 256
   feetPos: {fileID: 1941903363}
   whiskerLength: 0.2
-  jumpVelocity: 5
+  jumpVelocity: 4
   fallMultiplier: 3
   lowJumpMultiplier: 2
   jumpAudioClip: {fileID: 0}
   landAudioClip: {fileID: 0}
   landed: 0
   jumpTime: 0
-  jumpTimeMax: 0.1
+  jumpTimeMax: 0.05
   canJump: 0
 --- !u!114 &1731274160
 MonoBehaviour:

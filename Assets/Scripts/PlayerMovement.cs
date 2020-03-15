@@ -103,8 +103,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (canJump)
 		{
-			Vector2 halfwayVector = (new Vector2(rb.velocity.x, 0) + Vector2.up * jumpVelocity);
-			rb.velocity = halfwayVector;
+			//Vector2 halfwayVector = (new Vector2(rb.velocity.x, 0) + Vector2.up * jumpVelocity);
+			//rb.velocity = halfwayVector;
+			rb.velocity += Vector2.up * jumpVelocity;
 			//audioSource.PlayOneShot(jumpAudioClip);
 		}
 
