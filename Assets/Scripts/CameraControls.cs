@@ -11,7 +11,8 @@ public class CameraControls : MonoBehaviour
 	public float currentFacingOffset;
 	public float xOffset = 0f;
 	public float yOffset = 0f;
-	public float zOffset = -10f;
+	public float perspectiveYOffset;
+	public float zOffset;
 	public float maximumXOffset = 7f;
 	public float maximumYOffset = 5f;
 	public Vector3 fullOffset;
@@ -98,6 +99,13 @@ public class CameraControls : MonoBehaviour
 		else if (yOffset < maximumYOffset * -1)
 		{
 			yOffset = maximumYOffset * -1;
+		}
+
+		if (!Camera.main.orthographic)
+		{
+			Camera.main.transform.LookAt(player);
+			yOffset += perspectiveYOffset;
+			xOffset = 0;
 		}
 
 		fullOffset = new Vector3(xOffset, yOffset, zOffset);

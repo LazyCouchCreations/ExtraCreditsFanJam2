@@ -28,8 +28,8 @@ public class PlayerMovement : MonoBehaviour {
 	public AudioClip jumpAudioClip;
 	public AudioClip landAudioClip;
 	public bool landed = false;
-	public float jumpTime = 0;
-	public float jumpTimeMax;
+	public float jumpFrame = 0;
+	public float jumpFrameMax;
 	public bool canJump = false;
 
 	// Use this for initialization
@@ -56,15 +56,15 @@ public class PlayerMovement : MonoBehaviour {
 			isJumping = false;
 		}
 
-		if (isJumping && jumpTime < jumpTimeMax)
-		{
-			jumpTime += Time.deltaTime;
-			canJump = true;
-		}
-		else
-		{
-			canJump = false;
-		}
+		//if (isJumping && jumpFrame <= jumpFrameMax)
+		//{
+		//	jumpFrame += 1;
+		//	canJump = true;
+		//}
+		//else
+		//{
+		//	canJump = false;
+		//}
 	}
 
 	private void FixedUpdate()
@@ -72,13 +72,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (worldMousePos.x > myFlatTransform.x)
 		{
 			//look right
-			transform.localScale = new Vector3(1f, 1f, 1);
+			//transform.localScale = new Vector3(1f, 1f, 1);
 			cameraControls.isFacingLeft = false;
 		}
 		else if (worldMousePos.x < myFlatTransform.x)
 		{
 			//look left
-			transform.localScale = new Vector3(-1f, 1f, 1);
+			//transform.localScale = new Vector3(-1f, 1f, 1);
 			cameraControls.isFacingLeft = true;
 		}
 
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (isGrounded && !landed)
 		{
 			landed = true;
-			jumpTime = 0;
+			jumpFrame = 0;
 			//audioSource.PlayOneShot(landAudioClip);
 		}
 
@@ -101,10 +101,9 @@ public class PlayerMovement : MonoBehaviour {
 		rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
 		//anim.SetFloat("Speed", Mathf.Abs(moveInput));
 
-		if (canJump)
+		if (isJumping && jumpFrame <= jumpFrameMax)
 		{
-			//Vector2 halfwayVector = (new Vector2(rb.velocity.x, 0) + Vector2.up * jumpVelocity);
-			//rb.velocity = halfwayVector;
+			jumpFrame += 1;
 			rb.velocity += Vector2.up * jumpVelocity;
 			//audioSource.PlayOneShot(jumpAudioClip);
 		}
@@ -114,9 +113,9 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			rb.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
 			isJumping = false;
-			canJump = false;
+			//canJump = false;
 
-		} else if (rb.velocity.y > 0 && !isJumping){
+		} else if (rb.velocity.y > 0){
 			rb.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
 		}
 
